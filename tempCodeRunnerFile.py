@@ -1,4 +1,4 @@
-# from models.llm import llm
+from models.llm import llm
 # from utils.logger import console
 
 # console.print("[cyan]AI Software Engineering Team[/cyan]")
@@ -8,7 +8,3 @@
 # )
 
 # console.print(response.content)
-
-from memory.checkpoint import memory
-
-print(memory)
