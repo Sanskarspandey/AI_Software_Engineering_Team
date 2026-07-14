@@ -26,6 +26,7 @@ class ProductManagerAgent(BaseAgent):
         )
 
         state["product_spec"] = result
+        state["next_agent"] = "Business Analyst"
 
         markdown = generate_product_markdown(result)
 

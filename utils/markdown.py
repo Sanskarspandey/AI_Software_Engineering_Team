@@ -44,3 +44,32 @@ def generate_product_markdown(product: ProductSpec):
         md += f"- {item}\n"
 
     return md
+
+from schemas.srs import SRS
+
+
+def generate_srs_markdown(srs: SRS):
+
+    md = f"# Software Requirements Specification\n\n"
+
+    md += f"## Project Name\n\n{srs.project_name}\n\n"
+
+    md += f"## Executive Summary\n\n{srs.executive_summary}\n\n"
+
+    sections = [
+        ("Functional Requirements", srs.functional_requirements),
+        ("Non Functional Requirements", srs.non_functional_requirements),
+        ("User Stories", srs.user_stories),
+        ("Use Cases", srs.use_cases),
+        ("Assumptions", srs.assumptions),
+        ("Constraints", srs.constraints),
+        ("Acceptance Criteria", srs.acceptance_criteria),
+    ]
+
+    for title, items in sections:
+        md += f"## {title}\n"
+        for item in items:
+            md += f"- {item}\n"
+        md += "\n"
+
+    return md

@@ -17,10 +17,3 @@ state = {
 }
 
 result = graph.invoke(state)
-
-print("\n========== FINAL STATE ==========\n")
-
-print("Need Clarification:", result["need_clarification"])
-print("Questions:", result["clarification_questions"])
-print("Next Agent:", result["next_agent"])
-print("Reasoning:", result["reasoning"])

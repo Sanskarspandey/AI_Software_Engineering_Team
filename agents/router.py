@@ -4,14 +4,23 @@ from utils.logger import console
 
 def router_node(state):
 
-    next_agent = state["next_agent"]
+    while True:
 
-    agent = AGENT_REGISTRY.get(next_agent)
+        next_agent = state["next_agent"]
 
-    if agent is None:
-        console.print(f"[red]Unknown agent: {next_agent}[/red]")
-        return state
+        if not next_agent:
+            break
 
-    console.print(f"[yellow]Routing to {next_agent}[/yellow]")
+        agent = AGENT_REGISTRY.get(next_agent)
 
-    return agent.invoke(state)
+        if agent is None:
+            console.print(f"[red]Unknown agent: {next_agent}[/red]")
+            break
+
+        console.print(f"[yellow]Routing to {next_agent}[/yellow]")
+
+        state["next_agent"] = ""
+
+        state = agent.invoke(state)
+
+    return state
