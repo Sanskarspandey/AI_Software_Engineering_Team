@@ -1,28 +1,30 @@
-from typing import TypedDict, List
-
+from typing import TypedDict
+from schemas.product import ProductSpec
 
 class SoftwareProjectState(TypedDict):
 
     user_request: str
 
-    clarification_questions: List[str]
+    need_clarification: bool
 
-    clarification_answers: List[str]
+    clarification_questions: list[str]
 
-    product_spec: str
+    next_agent: str
+
+    reasoning: str
+
+    product_spec: ProductSpec | None
 
     srs: str
 
     ui_design: str
 
-    database_schema: str
-
     backend_code: str
 
     frontend_code: str
 
+    database_schema: str
+
     qa_report: str
 
     deployment_status: str
-
-    next_agent: str

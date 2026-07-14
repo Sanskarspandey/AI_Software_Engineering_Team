@@ -1,14 +1,26 @@
-# from models.llm import llm
-# from utils.logger import console
+from graphs.workflow import graph
 
-# console.print("[cyan]AI Software Engineering Team[/cyan]")
+state = {
+    "user_request": "Build me an Airbnb clone.",
+    "need_clarification": False,
+    "clarification_questions": [],
+    "next_agent": "",
+    "reasoning": "",
+    "product_spec": None,
+    "srs": "",
+    "ui_design": "",
+    "backend_code": "",
+    "frontend_code": "",
+    "database_schema": "",
+    "qa_report": "",
+    "deployment_status": ""
+}
 
-# response = llm.invoke(
-#     "Introduce yourself as the CEO of an AI software company."
-# )
+result = graph.invoke(state)
 
-# console.print(response.content)
+print("\n========== FINAL STATE ==========\n")
 
-from memory.checkpoint import memory
-
-print(memory)
+print("Need Clarification:", result["need_clarification"])
+print("Questions:", result["clarification_questions"])
+print("Next Agent:", result["next_agent"])
+print("Reasoning:", result["reasoning"])
