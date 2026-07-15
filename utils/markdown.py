@@ -73,3 +73,66 @@ def generate_srs_markdown(srs: SRS):
         md += "\n"
 
     return md
+
+from schemas.ui_design import UIDesign
+
+
+def generate_ui_markdown(ui: UIDesign) -> str:
+    """
+    Convert a UIDesign object into a Markdown document.
+    """
+
+    md = "# UI / UX Design Specification\n\n"
+
+    md += "## Design Vision\n\n"
+    md += f"{ui.design_vision}\n\n"
+
+    sections = [
+        ("Color Palette", ui.color_palette),
+        ("Typography", ui.typography),
+        ("Screens", ui.screens),
+        ("Navigation Flow", ui.navigation_flow),
+        ("Components", ui.components),
+        ("Responsive Design", ui.responsiveness),
+        ("Accessibility", ui.accessibility),
+        ("Animations", ui.animations),
+    ]
+
+    for title, items in sections:
+        md += f"## {title}\n\n"
+
+        for item in items:
+            md += f"- {item}\n"
+
+        md += "\n"
+
+    return md
+
+from schemas.database_design import DatabaseDesign
+
+
+def generate_database_markdown(db: DatabaseDesign) -> str:
+
+    md = "# Database Design\n\n"
+
+    md += f"## Database Technology\n\n{db.database_type}\n\n"
+
+    sections = [
+        ("Collections", db.collections),
+        ("Relationships", db.relationships),
+        ("Indexes", db.indexes),
+        ("Validation Rules", db.validation_rules),
+        ("Mongoose Models", db.mongoose_models),
+        ("API Dependencies", db.api_dependencies),
+    ]
+
+    for title, items in sections:
+
+        md += f"## {title}\n\n"
+
+        for item in items:
+            md += f"- {item}\n"
+
+        md += "\n"
+
+    return md

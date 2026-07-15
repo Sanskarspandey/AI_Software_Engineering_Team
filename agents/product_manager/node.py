@@ -4,7 +4,6 @@ from schemas.product import ProductSpec
 from agents.product_manager.prompt import SYSTEM_PROMPT
 
 from utils.markdown import generate_product_markdown
-from tools.file_tools import write_markdown
 
 
 class ProductManagerAgent(BaseAgent):
@@ -26,14 +25,14 @@ class ProductManagerAgent(BaseAgent):
         )
 
         state["product_spec"] = result
-        state["next_agent"] = "Business Analyst"
 
         markdown = generate_product_markdown(result)
 
-        write_markdown(
+        self.save_document(
             "product_spec.md",
             markdown
         )
+        state["next_agent"] = "Business Analyst"
 
         self.log_end()
 

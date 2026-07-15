@@ -2,11 +2,11 @@
 
 ## Project Name
 
-StayWithUs Software Requirements Specification
+StayWithUs
 
 ## Executive Summary
 
-The StayWithUs platform aims to revolutionize short-term rentals by providing a secure, user-friendly, and innovative environment for travelers and hosts. This SRS outlines the detailed requirements necessary to develop this platform, ensuring it meets the vision of fostering trust and innovation within the community.
+The StayWithUs platform aims to provide a secure, user-friendly, and innovative short-term rental marketplace for travelers and hosts. The software will include core features such as search functionality with filters based on amenities, location, price, and reviews; user profiles for both travelers and hosts; secure payment processing system; review and rating system; community features like forums and events; and integration with popular travel apps. The MVP scope includes basic search and filter options, simple user profile creation, secure payment gateway integration, initial review and rating system, and basic forum functionality.
 
 ## Functional Requirements
 

@@ -1,8 +1,9 @@
 from agents.base import BaseAgent
+
 from schemas.srs import SRS
 from agents.business_analyst.prompt import SYSTEM_PROMPT
+
 from utils.markdown import generate_srs_markdown
-from tools.file_tools import write_markdown
 
 
 class BusinessAnalystAgent(BaseAgent):
@@ -17,10 +18,44 @@ class BusinessAnalystAgent(BaseAgent):
 
         product_spec = state["product_spec"]
 
+        target_users = "\n".join(
+            f"- {user}" for user in product_spec.target_users
+        )
+
+        core_features = "\n".join(
+            f"- {feature}" for feature in product_spec.core_features
+        )
+
+        mvp_scope = "\n".join(
+            f"- {item}" for item in product_spec.mvp_scope
+        )
+
+        human_prompt = f"""
+Project Name:
+{product_spec.product_name}
+
+Vision:
+{product_spec.vision}
+
+Problem Statement:
+{product_spec.problem_statement}
+
+Target Users:
+{target_users}
+
+Core Features:
+{core_features}
+
+MVP Scope:
+{mvp_scope}
+
+Generate a complete Software Requirements Specification.
+"""
+
         result = self.structured_llm.invoke(
             [
                 ("system", SYSTEM_PROMPT),
-                ("human", product_spec.model_dump_json(indent=2))
+                ("human", human_prompt),
             ]
         )
 
@@ -28,7 +63,12 @@ class BusinessAnalystAgent(BaseAgent):
 
         markdown = generate_srs_markdown(result)
 
-        write_markdown("SRS.md", markdown)
+        self.save_document(
+            "SRS.md",
+            markdown
+        )
+
+        state["next_agent"] = "UI Designer"
 
         self.log_end()
 
