@@ -1,5 +1,5 @@
 from typing import TypedDict
-
+from schemas.backend_design import BackendDesign
 from schemas.product import ProductSpec
 from schemas.srs import SRS
 from schemas.ui_design import UIDesign
@@ -31,8 +31,8 @@ class SoftwareProjectState(TypedDict):
 
     database_design: DatabaseDesign | None
     
-    backend_code: str
-
+    backend_design: BackendDesign | None
+    
     frontend_code: str
 
     qa_report: str
