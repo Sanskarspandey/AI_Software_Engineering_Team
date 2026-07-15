@@ -21,8 +21,8 @@ def main():
         "srs": None,
         "ui_design": None,
         "database_design": None,
-        "backend_design": None,
-        "frontend_code": "",
+        "backend_project": None,
+        "frontend_project": None,
         "qa_report": "",
         "deployment_status": ""
     }

@@ -1,6 +1,6 @@
 from agents.base import BaseAgent
 
-from schemas.backend_design import BackendDesign
+from schemas.backend_project import BackendProject
 from agents.backend_engineer.prompt import SYSTEM_PROMPT
 
 from tools.project_generator import ProjectGenerator
@@ -13,7 +13,7 @@ class BackendEngineerAgent(BaseAgent):
         super().__init__("Backend Engineer")
 
         self.structured_llm = self.llm.with_structured_output(
-            BackendDesign
+            BackendProject
         )
 
     def invoke(self, state):
@@ -22,7 +22,7 @@ class BackendEngineerAgent(BaseAgent):
 
         srs = state["srs"]
         ui = state["ui_design"]
-        db = state["database_design"]
+        database = state["database_design"]
 
         functional_requirements = "\n".join(
             f"- {item}" for item in srs.functional_requirements
@@ -33,12 +33,21 @@ class BackendEngineerAgent(BaseAgent):
         )
 
         collections = "\n".join(
-            f"- {item}" for item in db.collections
+            f"- {item}" for item in database.collections
         )
 
-        human_prompt = f"""
+        relationships = "\n".join(
+            f"- {item}" for item in database.relationships
+        )
+
+        prompt = f"""
+You are generating a complete Express.js backend.
+
 Project Name:
 {srs.project_name}
+
+Executive Summary:
+{srs.executive_summary}
 
 Functional Requirements:
 {functional_requirements}
@@ -49,26 +58,43 @@ Screens:
 Database Collections:
 {collections}
 
-Generate the backend architecture.
+Relationships:
+{relationships}
+
+Generate a complete production-ready Express.js backend.
+
+Requirements:
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- MVC Architecture
+
+Generate EVERY required source file.
+
+Return the response as a BackendProject object.
 """
 
-        result = self.structured_llm.invoke(
+        backend_project = self.structured_llm.invoke(
             [
                 ("system", SYSTEM_PROMPT),
-                ("human", human_prompt)
+                ("human", prompt)
             ]
         )
 
-        state["backend_design"] = result
+        state["backend_project"] = backend_project
 
         generator = ProjectGenerator(
             "generated_projects/airbnb_clone"
         )
 
-        for folder in result.folder_structure:
-            generator.create_directory(folder)
+        generator.write_generated_files(
+            backend_project.files
+        )
 
-        state["next_agent"] = ""
+        state["next_agent"] = "Frontend Engineer"
 
         self.log_end()
 

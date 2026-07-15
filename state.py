@@ -1,10 +1,11 @@
 from typing import TypedDict
-from schemas.backend_design import BackendDesign
+
 from schemas.product import ProductSpec
 from schemas.srs import SRS
 from schemas.ui_design import UIDesign
 from schemas.database_design import DatabaseDesign
-
+from schemas.backend_project import BackendProject
+from schemas.frontend_project import FrontendProject
 
 class SoftwareProjectState(TypedDict):
     """
@@ -30,11 +31,11 @@ class SoftwareProjectState(TypedDict):
     ui_design: UIDesign | None
 
     database_design: DatabaseDesign | None
-    
-    backend_design: BackendDesign | None
-    
-    frontend_code: str
 
+    backend_project: BackendProject | None
+
+    frontend_project: FrontendProject | None
+    
     qa_report: str
 
     deployment_status: str

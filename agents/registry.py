@@ -3,7 +3,7 @@ from agents.business_analyst.node import business_analyst
 from agents.ui_designer.node import ui_designer
 from agents.database_engineer.node import database_engineer
 from agents.backend_engineer.node import backend_engineer
-
+from agents.frontend_engineer.node import frontend_engineer
 
 AGENT_REGISTRY = {
     "Product Manager": product_manager,
@@ -11,4 +11,5 @@ AGENT_REGISTRY = {
     "UI Designer": ui_designer,
     "Database Engineer": database_engineer,
     "Backend Engineer": backend_engineer,
+    "Frontend Engineer": frontend_engineer,
 }

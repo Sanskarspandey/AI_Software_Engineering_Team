@@ -1,0 +1,1 @@
+See backend/src/middleware/authMiddleware.js
